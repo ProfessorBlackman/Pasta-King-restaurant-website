@@ -1,0 +1,7 @@
+{
+  "name": "Pasta King - Ghanaian-Italian Fusion",
+  "description": "A premium dining experience blending the bold flavors of Ghana with authentic Italian pasta. Explore our menu, our story, and find our locations in Accra.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
