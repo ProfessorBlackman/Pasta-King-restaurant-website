@@ -11,6 +11,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Reservations from './pages/Reservations';
 import BuildYourOwn from './pages/BuildYourOwn';
+import ChefAssistant from './components/ChefAssistant';
 
 const App: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
               <Route path="/reservations" element={<Reservations />} />
             </Routes>
           </main>
+          <ChefAssistant />
           <Footer />
         </div>
       </Router>

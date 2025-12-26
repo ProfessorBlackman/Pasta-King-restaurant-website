@@ -32,15 +32,28 @@ const BuildYourOwn: React.FC = () => {
     { name: 'Grilled Beef', price: 35, desc: 'Tender strips with black pepper.', image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=400' }
   ];
 
+  const TOPPINGS = [
+    { name: 'Parmesan', price: 5 },
+    { name: 'Scotch Bonnet', price: 2 },
+    { name: 'Spring Onions', price: 0 },
+    { name: 'Fried Plantain', price: 10 },
+    { name: 'Garlic Butter', price: 5 },
+    { name: 'Crispy Shallots', price: 3 }
+  ];
+
   const total = useMemo(() => {
     let sum = 50.0; // Base price for custom bowl
     sum += BASES.find(b => b.name === base)?.price || 0;
     sum += PROTEINS.find(p => p.name === protein)?.price || 0;
-    toppings.forEach(t => {
-      // Note: TOPPINGS array not explicitly used in logic here but left for parity
+    toppings.forEach(tName => {
+      sum += TOPPINGS.find(top => top.name === tName)?.price || 0;
     });
     return sum;
-  }, [base, protein]);
+  }, [base, protein, toppings]);
+
+  const toggleTopping = (name: string) => {
+    setToppings(prev => prev.includes(name) ? prev.filter(t => t !== name) : [...prev, name]);
+  };
 
   const handleAdd = () => {
     addToCart('custom-bowl');
@@ -132,6 +145,30 @@ const BuildYourOwn: React.FC = () => {
                 ))}
               </div>
             </section>
+
+            <section className="flex flex-col gap-8">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="size-10 rounded-full bg-primary text-white flex items-center justify-center font-black text-lg">4</div>
+                  <h2 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tight">Finish with Toppings</h2>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {TOPPINGS.map(t => (
+                  <button 
+                    key={t.name} 
+                    onClick={() => toggleTopping(t.name)} 
+                    className={`flex items-center justify-between bg-white dark:bg-card-dark rounded-2xl p-4 border-2 transition-all ${toppings.includes(t.name) ? 'border-primary ring-4 ring-primary/10' : 'border-gray-100 dark:border-white/5'}`}
+                  >
+                    <div className="text-left">
+                      <p className="font-black text-gray-900 dark:text-white text-sm">{t.name}</p>
+                      <p className="text-[10px] text-primary font-bold">{t.price > 0 ? `+GHS ${t.price}` : 'Free'}</p>
+                    </div>
+                    {toppings.includes(t.name) && <span className="material-symbols-outlined text-primary">check_circle</span>}
+                  </button>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
 
@@ -140,7 +177,7 @@ const BuildYourOwn: React.FC = () => {
             <h2 className="text-3xl font-black mb-1 uppercase tracking-tighter">Review Order</h2>
             <p className="text-white/70 text-sm font-medium mb-10">Custom Fusion Bowl</p>
 
-            <div className="flex flex-col gap-8 mb-auto">
+            <div className="flex flex-col gap-6 mb-auto overflow-y-auto no-scrollbar max-h-[40vh]">
               <div className="flex justify-between items-center border-b border-white/10 pb-4">
                 <div><span className="text-[10px] font-black uppercase text-white/50 block mb-1">Base</span><p className="font-black text-lg">{base}</p></div>
                 <span className="text-sm font-bold">GHS 50.00</span>
@@ -155,9 +192,18 @@ const BuildYourOwn: React.FC = () => {
                   <span className="text-sm font-bold">+GHS {PROTEINS.find(p => p.name === protein)?.price}</span>
                 </div>
               )}
+              {toppings.length > 0 && (
+                <div className="flex justify-between border-b border-white/10 pb-4">
+                  <div className="flex-1"><span className="text-[10px] font-black uppercase text-white/50 block mb-1">Toppings</span>
+                    <div className="flex flex-wrap gap-1">
+                      {toppings.map(t => <span key={t} className="text-xs bg-white/10 px-2 py-0.5 rounded-full font-bold">{t}</span>)}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="mt-12 pt-8 border-t border-white/10">
+            <div className="mt-8 pt-8 border-t border-white/10">
               <div className="flex justify-between items-end mb-8">
                 <span className="text-sm font-bold opacity-70 uppercase">Total</span>
                 <span className="text-6xl font-black">GHS {total}</span>

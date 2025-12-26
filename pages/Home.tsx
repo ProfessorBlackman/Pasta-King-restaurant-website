@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TESTIMONIALS, MENU_ITEMS } from '../constants';
-import { MenuItem } from '../types';
+import { MenuItem, Category } from '../types';
 import MenuItemModal from '../components/MenuItemModal';
 import { useCart } from '../CartContext';
 
 const Home: React.FC = () => {
-  const favoritesItems = MENU_ITEMS.slice(0, 4);
+  const chefsSpecials = MENU_ITEMS.filter(item => item.category === Category.CHEFS_SPECIALS);
+  const favoritesItems = MENU_ITEMS.slice(2, 6); // Offset slightly to show different items from specials
   const { cart, addToCart, removeFromCart } = useCart();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
@@ -127,12 +128,56 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Chef's Specials Section */}
+      <section className="w-full bg-orange-50/30 dark:bg-primary/5 py-24 flex justify-center">
+        <div className="w-full max-w-[1200px] px-6 lg:px-8">
+          <div className="text-center mb-16 flex flex-col items-center gap-4">
+            <span className="px-4 py-1.5 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase tracking-widest border border-primary/20">Chef Kwame Recommends</span>
+            <h2 className="text-5xl font-black text-[#181411] dark:text-white">Chef's Signature Specials</h2>
+            <p className="text-gray-500 dark:text-gray-400 max-w-2xl text-lg">Our most ambitious fusion dishes, where authentic Italian pasta meets the fiery heritage of West Africa.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {chefsSpecials.map((item) => (
+              <div 
+                key={item.id}
+                onClick={() => setSelectedItem(item)}
+                className="group cursor-pointer bg-white dark:bg-card-dark rounded-[40px] overflow-hidden shadow-xl border border-gray-100 dark:border-white/5 transition-all duration-500 hover:-translate-y-3"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <img src={item.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.name} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="flex items-center gap-2 mb-2">
+                       <span className="material-symbols-outlined text-primary text-[20px] fill-current">stars</span>
+                       <span className="text-white font-black text-xs uppercase tracking-widest">Masterpiece</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-2xl font-black text-[#181411] dark:text-white leading-tight">{item.name}</h3>
+                    <span className="text-primary font-black text-xl">GH₵ {item.price}</span>
+                  </div>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-2">
+                    {item.description}
+                  </p>
+                  <button className="w-full h-12 rounded-2xl bg-primary/5 border border-primary/20 text-primary font-black text-xs uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-all">
+                    Experience This Dish
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Customer Favorites Section */}
       <section className="w-full max-w-[1200px] px-6 lg:px-8 py-20">
         <div className="flex items-end justify-between mb-12">
           <div className="flex flex-col gap-3">
             <span className="text-primary font-black text-xs tracking-[0.2em] uppercase">Menu Highlights</span>
-            <h2 className="text-5xl font-black text-[#181411] dark:text-white">Customer Favorites</h2>
+            <h2 className="text-5xl font-black text-[#181411] dark:text-white">Popular with Guests</h2>
           </div>
           <Link to="/menu" className="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all group text-lg">
             View Full Menu <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>

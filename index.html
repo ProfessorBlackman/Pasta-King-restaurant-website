@@ -37,6 +37,14 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .masonry { column-gap: 1.5rem; }
     .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+    
+    /* Markdown Styles for Chat */
+    .prose-chat h1, .prose-chat h2, .prose-chat h3 { font-weight: 800; margin-top: 0.5rem; margin-bottom: 0.25rem; }
+    .prose-chat ul { list-style-type: disc; margin-left: 1.25rem; margin-bottom: 0.5rem; }
+    .prose-chat ol { list-style-type: decimal; margin-left: 1.25rem; margin-bottom: 0.5rem; }
+    .prose-chat p { margin-bottom: 0.5rem; }
+    .prose-chat p:last-child { margin-bottom: 0; }
+    .prose-chat strong { color: inherit; font-weight: 800; }
   </style>
 <script type="importmap">
 {
@@ -44,7 +52,9 @@
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "marked": "https://esm.sh/marked@^12.0.0"
   }
 }
 </script>
