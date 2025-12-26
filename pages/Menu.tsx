@@ -70,7 +70,7 @@ const Menu: React.FC = () => {
           <div className="relative w-full aspect-[21/9] md:aspect-[3/1] rounded-3xl overflow-hidden mb-10 shadow-lg group">
             <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&q=80&w=1200')` }}></div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex flex-col justify-center p-8 md:p-12">
-              <span className="inline-block px-4 py-1.5 bg-primary text-white text-[10px] font-black rounded-full mb-4 w-fit uppercase tracking-widest">Free Delivery on Orders > GHS 200</span>
+              <span className="inline-block px-4 py-1.5 bg-primary text-white text-[10px] font-black rounded-full mb-4 w-fit uppercase tracking-widest">Free Delivery on Orders &gt; GHS 200</span>
               <h1 className="text-white text-4xl md:text-5xl font-black leading-tight mb-4 tracking-tight">The Rhythm of Ghana<br/>on an Italian Plate</h1>
               <p className="text-white/80 font-medium">Authentic, Spicy, Unforgettable.</p>
             </div>
